@@ -1,6 +1,18 @@
 class Querie
 
 # Find average age of players of passed in game
+  def self.list_of_game_names
+    Game.all.collect do |game|
+      game.name
+    end
+  end
+
+  def self.list_game_names_of_player(player_object)
+    player_object.games.collect do |game|
+      game.name
+    end
+  end
+
   def self.find_average_age_of_game(game_object)
     ages = Player.all.collect do |player| ## Retrieves array of all player objects
       # checks to see if players game array contains the passed in game
@@ -59,7 +71,6 @@ class Querie
       #deletes passed in players name out of array
       games_hash[game.name].delete(player_object.name)
     end
-
     games_hash
   end
 
