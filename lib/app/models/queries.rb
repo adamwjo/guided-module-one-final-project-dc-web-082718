@@ -10,8 +10,15 @@ class Querie
         player.age
       end
     end.compact #Removes nil space
-
     average = ages.sum.to_f/ages.length.to_f #Average = total/number of instances
   end
+
+  def self.game_players(game)
+    #collects array of game player
+    game.players.collect do |player|
+      player.name
+    end
+  end
+
 
 end
