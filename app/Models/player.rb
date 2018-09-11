@@ -1,4 +1,4 @@
 class Player < ActiveRecord::Base
-  belongs_to :match
-  has_many :characters, through: :Gamesession
+  has_many :playergames
+  has_many :games, through: :playergames
 end
