@@ -9,6 +9,7 @@ class Querie
 
   end
 
+# lists games of intputed player
   def self.list_game_names_of_player(player_object)
     player_object.games.collect do |game|
       puts game.name
@@ -16,6 +17,7 @@ class Querie
     end
   end
 
+# returns average age of passed in games players
   def self.find_average_age_of_game(game_object)
     ages = Player.all.collect do |player| ## Retrieves array of all player objects
       # checks to see if players game array contains the passed in game
@@ -29,6 +31,7 @@ class Querie
     average
   end
 
+# lists players of intputed game
   def self.game_players(game_object)
     #collects array of game player
     name_array = game_object.players.collect do |player|
@@ -82,6 +85,7 @@ class Querie
     end
     games_hash
   end
+
 
 
 
