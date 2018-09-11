@@ -2,7 +2,6 @@ class Querie
 
 # Find average age of players of passed in game
   def self.find_average_age_of_game(game_object)
-    #
     ages = Player.all.collect do |player| ## Retrieves array of all player objects
       # checks to see if players game array contains the passed in game
       if player.games.include?(game_object)
@@ -47,8 +46,23 @@ class Querie
       locations[location] = location_array.count(location)
     end
     locations
-
   end
+
+# returns what players share games with given player organized by game
+  def self.players_who_share_games_with(player_object)
+    # initializes empty game_hash
+    games_hash = {}
+    # iterates through games array of passed in player object
+    player_object.games.each do |game|
+      # Collects players who also play those games
+      games_hash[game.name] = game.players.collect{ |player| player.name}
+      #deletes passed in players name out of array
+      games_hash[game.name].delete(player_object.name)
+    end
+
+    games_hash
+  end
+
 
 
 
