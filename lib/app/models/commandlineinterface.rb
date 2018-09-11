@@ -1,5 +1,17 @@
 class CommandLineInterface
 
+  #   "Login or create Username: "
+    # if Player.find_by(name: input)
+    #   player Player.find_by(name:input)
+    #   "We found your exiting account and logged in!"
+    #
+    # else
+    #
+    #   Player.create(:username)
+    #   "no extisting account found please enter your age"
+    #   "please enter your location"
+    # end
+
   def run
     greet
     input = gets_user_input.to_i
