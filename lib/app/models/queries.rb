@@ -3,12 +3,15 @@ class Querie
 # Find average age of players of passed in game
   def self.list_of_game_names
     Game.all.collect do |game|
+      puts game.name
       game.name
     end
+
   end
 
   def self.list_game_names_of_player(player_object)
     player_object.games.collect do |game|
+      puts game.name
       game.name
     end
   end
@@ -22,11 +25,14 @@ class Querie
       end
     end.compact #Removes nil space
     average = ages.sum.to_f/ages.length.to_f #Average = total/number of instances
+    puts average
+    average
   end
 
   def self.game_players(game_object)
     #collects array of game player
-    game_object.players.collect do |player|
+    name_array = game_object.players.collect do |player|
+      puts name_array
       player.name
     end
   end
@@ -53,8 +59,9 @@ class Querie
     location_array = game_object.players.collect do |player|
       player.location
     end
-    location_array.uniq do |location|
+    location_array.uniq.each do |location|
       # creates locations hash with locations keys pointing to number of players from that area
+      puts "#{location}: #{location_array.count(location)} Players"
       locations[location] = location_array.count(location)
     end
     locations
@@ -70,6 +77,8 @@ class Querie
       games_hash[game.name] = game.players.collect{ |player| player.name}
       #deletes passed in players name out of array
       games_hash[game.name].delete(player_object.name)
+
+      puts "#{game.name} Players: #{games_hash[game.name].join(", ")}"
     end
     games_hash
   end
