@@ -34,17 +34,23 @@ class Querie
     players
   end
 
-  "Login or create Username: "
-  if Player.find_by(name: input)
-    player Player.find_by(name:input)
-    "We found your exiting account and logged in!"
+# prodies break down of number of players by locaiton for passed in game_object
+  def self.game_player_breakdown_by_location(game_object)
+    # intialized empty locations hash to store location breakdown
+    locations = {}
+    # collects array of player locations for given game
+    location_array = game_object.players.collect do |player|
+      player.location
+    end
+    location_array.uniq do |location|
+      # creates locations hash with locations keys pointing to number of players from that area
+      locations[location] = location_array.count(location)
+    end
+    locations
 
-  else
-
-    Player.create(:username)
-    "no extisting account found please enter your age"
-    "please enter your location"
   end
+
+
 
 
 end
