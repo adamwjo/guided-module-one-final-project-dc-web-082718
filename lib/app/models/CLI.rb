@@ -4,16 +4,27 @@ class CLI
 
 
   def run
-    # greet
-    # create_an_account
-    # update_age
+    greet
+    create_an_account
+    update_age
     update_location
+    main_program_introduction
+    if main_program_introduction == 1
+      puts "Lets add a game to your account"
+    end 
   end
 
  # ***********************************************
   def greet
     puts "Welcome to Game Master 3000!"
     puts "Please Login"
+  end
+
+  def main_program_introduction
+    puts "Great you are all ready to start!"
+    puts "what would you like to do?"
+    puts "1.)add a game to your account\n 2.)get game info\n 3.)get info on other players\n 4.)Listmygames"
+    get_user_input
   end
 
   def get_user_input
@@ -30,7 +41,7 @@ class CLI
     if user
       puts "You already have an account, enjoy!"
     else
-      Player.create(name: name)
+      @user = Player.create(name: name)
       puts "Account Created!"
     end
   end
@@ -53,11 +64,34 @@ class CLI
     end
   end
 
+  def add_game
+    #choose from existing games to add to account
+    #list games
+    #get user input
+    #if the game doesnt exist add a new game
+  end
+
+  def get_game_info
+    #puts "Please enter a game you wish to know more about"
+    #what would you like to know?
+        #type,
+        #average player age,
+        #players who play that game
+        #location of players who play that game
+  end
+
+  def get_info_on_players
+    #which players are from my area
+    #what players play the same game as me
+  end
+
+  def my_games
+    # display_games
+    # add_game
+    # remove games
+  end
+
+
+
+
 end
-
-
-
-
-
-# new_cli = CLI.new
-# new_cli.create_an_account
