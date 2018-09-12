@@ -8,7 +8,6 @@ class CLI
     create_or_login_to_an_account
     puts "Great you are all ready to start!"
     run_without_greeting
-
   end
 
   def run_without_greeting
@@ -29,7 +28,9 @@ end
 
  # ****************HELPER METHODS*******************************
   def greet
-    puts "Welcome to Game Master 3000!"
+    puts "╔═╗╦  ╔═╗╔╦╗╦╦═╗╔═╗╔╗╔  ╔═╗╔═╗╔╦╗╔═╗  ╦  ╔═╗╔╗ ╔╗ ╦ ╦
+╠╣ ║  ╠═╣ ║ ║╠╦╝║ ║║║║  ║ ╦╠═╣║║║║╣   ║  ║ ║╠╩╗╠╩╗╚╦╝
+╚  ╩═╝╩ ╩ ╩ ╩╩╚═╚═╝╝╚╝  ╚═╝╩ ╩╩ ╩╚═╝  ╩═╝╚═╝╚═╝╚═╝ ╩"
     puts "Please Login"
   end
 
@@ -39,6 +40,7 @@ end
     input = get_user_input.to_i
     # Checks if user input is valid
     if input > 4 || input < 1
+      system "clear"
       puts "Please enter a valid input".colorize(:red)
       # If input is invalid recall the method
       input = main_program_introduction
