@@ -6,17 +6,26 @@ class CLI
   def run
     greet
     create_or_login_to_an_account
-    input = main_program_introduction
-    if input == 1
-      add_game
-    elsif input == 2
-      get_game_info_menu
-    elsif input == 3
-      get_player_info_menu
-    elsif input == 4
-      my_games
-    end
+    puts "Great you are all ready to start!"
+    run_without_greeting
+
   end
+
+  def run_without_greeting
+  input = main_program_introduction
+  if input > 4 || input < 1
+    run_without_greeting
+  end
+  if input == 1
+    add_game
+  elsif input == 2
+    get_game_info_menu
+  elsif input == 3
+    get_player_info_menu
+  elsif input == 4
+    my_games
+  end
+end
 
  # ****************HELPER METHODS*******************************
   def greet
@@ -25,7 +34,6 @@ class CLI
   end
 
   def main_program_introduction
-    puts "Great you are all ready to start!"
     puts "what would you like to do?"
     puts "1.)add a game to your account\n 2.)get game info\n 3.)get info on other players\n 4.)Listmygames"
     input = get_user_input.to_i
@@ -172,6 +180,31 @@ class CLI
     # add_game
     # remove games
     Querie.list_game_names_of_player(@user)
+    puts "Would you like to: \n 1) Add a Game to Your Collection \n 2) Remove a Game From Your Collection \n 3)Return to Main Menu"
+    input = get_user_input.to_i
+    if input > 3 || input < 1
+      puts "Please Enter a Valid Input".colorize(:red)
+      my_games
+    elsif input == 1
+      add_game
+    elsif input == 2
+      system "clear"
+      puts "What game would you like to remove?"
+      Querie.list_game_names_of_player(@user)
+      input = get_user_input
+      game_to_delete = Game.find_by(name: input)
+      if game_to_delete == nil
+        puts "Please Enter a Valid Input".colorize(:red)
+        my_games
+      else
+      @user.games.delete(game_to_delete)
+      "#{game_to_delete.name} has been removed from your collection "
+    end
+    elsif input == 3
+      run_without_greeting
+
+    end
+
   end
 
 
