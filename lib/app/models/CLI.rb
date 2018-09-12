@@ -6,7 +6,7 @@ class CLI
   def run
     greet
     create_or_login_to_an_account
-    input = main_program_introduction.to_i
+    input = main_program_introduction
     if input == 1
       add_game
     elsif input == 2
@@ -28,7 +28,7 @@ class CLI
     puts "Great you are all ready to start!"
     puts "what would you like to do?"
     puts "1.)add a game to your account\n 2.)get game info\n 3.)get info on other players\n 4.)Listmygames"
-    get_user_input
+    get_user_input.to_i
   end
 
   def get_user_input
@@ -44,7 +44,7 @@ class CLI
     @user = Player.find_by(name: name)
     # Checks if user exists
     if user
-      puts "You already have an account and have been logged in, enjoy!"
+      puts "You already have an account and are now logged in, enjoy!"
     else
       # Creates player object if user does not already exist
       @user = Player.create(name: name)
@@ -69,6 +69,7 @@ class CLI
     new_location = get_user_input.to_i
     if new_location > 5 || new_location < 1
       puts "you fucked up"
+      update_location
     elsif new_location == 1
       @user.location = "US"
     elsif new_location == 2
@@ -85,7 +86,7 @@ class CLI
 
   def add_game
     system "clear"
-    puts "Lets add a game to your account \n Here is a list of your current games:"
+    puts "Lets add a game to your account \nHere is a list of your current games:"
     Querie.list_game_names_of_player(@user)
     puts "Please Enter the name of the game you would like to Add"
     input = get_user_input
@@ -126,8 +127,9 @@ class CLI
       system "clear"
       puts "#{game.name} is a #{game.genre}"
     elsif input == 2
-      binding.pry
       Querie.find_average_age_of_game(game)
+    elsif input == 3
+    elsif input == 4
     end
   end
 
