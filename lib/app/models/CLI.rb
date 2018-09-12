@@ -147,6 +147,21 @@ class CLI
   end
 #****************PLAYER INFO MENU**************************************
   def get_player_info_menu
+    system "clear"
+    puts "What would you like to know?\n 1.)Who is logged in right now?\n 2.) Whichs players are from my country?\n 3.)Who is playing the same game as me?"
+    input = get_user_input.to_i
+    if input == 1
+      puts "Here are the current users who are logged in "
+      Querie.current_logged_in_players
+    elsif input == 2
+      puts "Here are user's in your area:"
+      Querie.other_players_from_same_location(@user)
+    elsif input == 3
+      puts "These users are playing the same game(s) as you:"
+      Querie.players_who_share_games_with(@user)
+    end
+
+
     # Querie.list_game_names_of_player
     # which players are from my area
     # what players play the same game as me

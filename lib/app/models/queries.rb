@@ -51,7 +51,7 @@ class Querie
     end.compact
     # deletes passed in players name out of collection
     players.delete(player_object.name)
-    players
+    puts players
   end
 
 # prodies break down of number of players by locaiton for passed in game_object
@@ -86,9 +86,14 @@ class Querie
     games_hash
   end
 
-
-
-
+  def self.current_logged_in_players
+    players = Player.all.collect do |player|
+      player.name
+    end
+    players.each do |player|
+      puts player
+    end
+  end
 
 
 end
