@@ -12,13 +12,22 @@ class CLI
     update_location
     system "clear"
     input = main_program_introduction
-    if main_program_introduction == "1"
+    if input == "1"
       puts "Lets add a game to your account"
       input = get_user_input
       add_game(input)
       #my game screen
-    elsif main_program_introduction == 2
-      puts ""
+    elsif input == "2"
+      puts "Which Game Would you like to know more about"
+      Querie.list_of_game_names
+      puts "Please type in the name of the game you would like to know more about"
+      input = get_user_input
+      game = Game.find_by(name: input)
+      puts "What would you like to know"
+      puts "1. Game Genre"
+      puts "2. Average player age"
+      puts "3. Breakdown of Game Players by country"
+      puts "4. What other users are playing this game"
     end
   end
 
@@ -85,8 +94,17 @@ class CLI
   end
 
   def add_game(input)
-    game = Game.find_or_create_by(name:input )
-    @user.games << game
+    if Game.find_by(name: input)
+      game = Game.find_or_create_by(name:input )
+      @user.games << game
+    else
+      game = Game.find_or_create_by(name:input )
+      puts "This Game was previosly not in our Database Please enter a game Genre"
+      input = get_user_input
+      game.genre = input
+      game.save
+      puts "added to our Database!"
+    end
     #choose from existing games to add to account
     #list games
     #get user input
