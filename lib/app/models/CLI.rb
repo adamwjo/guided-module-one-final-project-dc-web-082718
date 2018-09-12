@@ -7,6 +7,7 @@ class CLI
     greet
     create_or_login_to_an_account
     input = main_program_introduction
+    binding.pry
     if input == 1
       add_game
     elsif input == 2
@@ -28,7 +29,14 @@ class CLI
     puts "Great you are all ready to start!"
     puts "what would you like to do?"
     puts "1.)add a game to your account\n 2.)get game info\n 3.)get info on other players\n 4.)Listmygames"
-    get_user_input.to_i
+    input = get_user_input.to_i
+    # Checks if user input is valid
+    if input > 4 || input < 1
+      puts "Please enter a valid input"
+      # If input is invalid recall the method
+      input = main_program_introduction
+    end
+    input
   end
 
   def get_user_input
