@@ -232,7 +232,7 @@ class CLI
     elsif input == 2
       if @user.games.empty?
         system "clear"
-        puts "You Have No Hames in Your Collection!".colorize(:red)
+        puts "You Have No Games in Your Collection!".colorize(:red)
         my_games
       else
         system "clear"
@@ -254,10 +254,5 @@ class CLI
       system "clear"
       run_without_greeting
     end
-
   end
-
-
-
-
 end

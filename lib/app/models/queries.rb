@@ -90,8 +90,15 @@ class Querie
     players = Player.all.collect do |player|
       player.name
     end
-    players.each do |player|
-      puts player
+    players.each.with_index do |player, index|
+      printf(player)
+      (18-player.length).times do
+        printf (" ")
+      end
+      if index % 3 == 0
+        printf("\n")
+      end
+
     end
   end
 
