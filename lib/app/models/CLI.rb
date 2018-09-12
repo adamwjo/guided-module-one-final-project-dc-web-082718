@@ -28,6 +28,13 @@ class CLI
       puts "2. Average player age"
       puts "3. Breakdown of Game Players by country"
       puts "4. What other users are playing this game"
+      input = get_user_input
+      if input == "1"
+        puts game.genre
+      elsif input == "2"
+        binding.pry
+        Querie.find_average_age_of_game(game)
+      end
     end
   end
 
