@@ -50,7 +50,7 @@ class CLI
 
   def main_program_introduction
     puts "what would you like to do?"
-    puts "1.)add a game to your account\n 2.)get game info\n 3.)get info on other players\n 4.)Listmygames\n 5.)Exit Lobby"
+    puts "1.)add a game to your account\n 2.)get game info\n 3.)get info on other players\n 4.)List My Games\n 5.)Exit Lobby"
     input = get_user_input.to_i
     # Checks if user input is valid
     system "clear"
@@ -133,7 +133,7 @@ class CLI
       else
         # Adds game to user games
         @user.games << game
-        puts "#{game.name} has been added to your account".colorize(:Blue)
+        puts "#{game.name} has been added to your account".colorize(:blue)
       end
     else
       # Creates New Game if doesnt already exist
@@ -144,7 +144,8 @@ class CLI
       game.update(genre: input)
       # Adds game to user account
       @user.games << game
-      puts "#{game.name} has been added to your account!"
+      system "clear"
+      puts "#{game.name} has been added to your account!".colorize(:blue)
       run_without_greeting
     end
   end
