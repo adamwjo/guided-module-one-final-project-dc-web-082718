@@ -18,7 +18,7 @@ class CLI
     end
   end
 
- # ***********************************************
+ # ****************HELPER METHODS*******************************
   def greet
     puts "Welcome to Game Master 3000!"
     puts "Please Login"
@@ -42,7 +42,6 @@ class CLI
     gets.chomp
   end
 
-# ************************************************
 
   def create_or_login_to_an_account
     puts "Please enter Username:"
@@ -63,6 +62,7 @@ class CLI
       system "clear"
     end
   end
+  # *****************LOGIN SCREEN*******************************
 
   def update_age
     puts "please enter your age"
@@ -122,30 +122,36 @@ class CLI
     end
   end
 
+#*******************GAME MENU***********************************
   def get_game_info_menu
     puts "Which Game Would you like to know more about"
     Querie.list_of_game_names
     puts "Please type in the name of the game you would like to know more about"
-    input = get_user_input.to_i
-    game = Game.find_by(name: input)
-    puts "What Would You Like to Know \n 1. Game Genre \n 2. Average Player Age \n 3. Breakdown of Game Players by Country \n 4. What other Users are Playing this Game"
     input = get_user_input
+    game = Game.find_by(name: input)
+    binding.pry
+    if game == nil then puts "game not in datebase"
+      get_game_info_menu
+    end
+    puts "What Would You Like to Know \n 1. Game Genre \n 2. Average Player Age \n 3. Breakdown of Game Players by Country \n 4. What other Users are Playing this Game"
+    input = get_user_input.to_i
     if input == 1
       system "clear"
       puts "#{game.name} is a #{game.genre}"
     elsif input == 2
       Querie.find_average_age_of_game(game)
     elsif input == 3
+      Querie.other_players_from_same_location(@user)
     elsif input == 4
     end
   end
-
+#****************PLAYER INFO MENU**************************************
   def get_player_info_menu
     # Querie.list_game_names_of_player
     # which players are from my area
     # what players play the same game as me
   end
-
+#***********************************************************************
   def my_games
     # display_games
     # add_game
