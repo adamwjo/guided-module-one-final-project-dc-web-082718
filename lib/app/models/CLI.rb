@@ -5,36 +5,16 @@ class CLI
 
   def run
     greet
-    create_an_account
-    system "clear"
-    update_age
-    system "clear"
-    update_location
-    system "clear"
-    input = main_program_introduction
-    if input == "1"
-      puts "Lets add a game to your account"
-      input = get_user_input
-      add_game(input)
-      #my game screen
-    elsif input == "2"
-      puts "Which Game Would you like to know more about"
-      Querie.list_of_game_names
-      puts "Please type in the name of the game you would like to know more about"
-      input = get_user_input
-      game = Game.find_by(name: input)
-      puts "What would you like to know"
-      puts "1. Game Genre"
-      puts "2. Average player age"
-      puts "3. Breakdown of Game Players by country"
-      puts "4. What other users are playing this game"
-      input = get_user_input
-      if input == "1"
-        puts game.genre
-      elsif input == "2"
-        binding.pry
-        Querie.find_average_age_of_game(game)
-      end
+    create_or_login_to_an_account
+    input = main_program_introduction.to_i
+    if input == 1
+      add_game
+    elsif input == 2
+      get_game_info_menu
+    elsif input == 3
+      get_player_info_menu
+    elsif input == 4
+      my_games
     end
   end
 
@@ -57,77 +37,101 @@ class CLI
 
 # ************************************************
 
-  def create_an_account
+  def create_or_login_to_an_account
     puts "Please enter Username:"
     name = get_user_input
+    # Gets user account
     @user = Player.find_by(name: name)
-    # binding.pry
+    # Checks if user exists
     if user
-      puts "You already have an account, enjoy!"
+      puts "You already have an account and have been logged in, enjoy!"
     else
+      # Creates player object if user does not already exist
       @user = Player.create(name: name)
+      # Prompts user for additional required information
       puts "Account Created!"
+      update_age
+      system "clear"
+      update_location
+      system "clear"
     end
   end
 
   def update_age
-    puts "please update your age"
+    puts "please enter your age"
     @user.age = get_user_input
     @user.save
   end
 
   def update_location
-    puts "please update your location by picking a number below"
+    puts "please enter your location by picking a number below"
     puts "1.) US\n2.) France\n3.) Mexico\n4.) Spain\n5.) Russia"
     new_location = get_user_input.to_i
     if new_location > 5 || new_location < 1
       puts "you fucked up"
     elsif new_location == 1
       @user.location = "US"
-      @user.save
     elsif new_location == 2
       @user.location = "France"
-      @user.save
     elsif new_location == 3
       @user.location = "Mexico"
-      @user.save
     elsif new_location == 4
       @user.location = "Spain"
-      @user.save
     elsif new_location == 5
       @user.location = "Russia"
-      @user.save
     end
+    @user.save
   end
 
-  def add_game(input)
-    if Game.find_by(name: input)
-      game = Game.find_or_create_by(name:input )
-      @user.games << game
+  def add_game
+    system "clear"
+    puts "Lets add a game to your account \n Here is a list of your current games:"
+    Querie.list_game_names_of_player(@user)
+    puts "Please Enter the name of the game you would like to Add"
+    input = get_user_input
+    # Gets Game object
+    game = Game.find_by(name:input )
+    # Checks if game with given name exists
+    if game
+      # Checks if user already has game on account
+      if @user.games.include?(game)
+        puts "#{game.name} is already on your account!"
+      else
+        # Adds game to user games
+        @user.games << game
+        puts "#{game.name} has been added to your account"
+      end
     else
-      game = Game.find_or_create_by(name:input )
+      # Creates New Game if doesnt already exist
+      game = Game.create(name:input )
       puts "This Game was previosly not in our Database Please enter a game Genre"
+      # Adds genre to game
       input = get_user_input
-      game.genre = input
-      game.save
-      puts "added to our Database!"
+      game.update(genre: input)
+      # Adds game to user account
+      @user.games << game
+      puts "#{game.name} has been added to your account!"
     end
-    #choose from existing games to add to account
-    #list games
-    #get user input
-    #if the game doesnt exist add a new game
   end
 
-  def get_game_info
-    #puts "Please enter a game you wish to know more about"
-    #what would you like to know?
-        #type,
-        #average player age,
-        #players who play that game
-        #location of players who play that game
+  def get_game_info_menu
+    puts "Which Game Would you like to know more about"
+    Querie.list_of_game_names
+    puts "Please type in the name of the game you would like to know more about"
+    input = get_user_input.to_i
+    game = Game.find_by(name: input)
+    puts "What Would You Like to Know \n 1. Game Genre \n 2. Average Player Age \n 3. Breakdown of Game Players by Country \n 4. What other Users are Playing this Game"
+    input = get_user_input
+    if input == 1
+      system "clear"
+      puts "#{game.name} is a #{game.genre}"
+    elsif input == 2
+      binding.pry
+      Querie.find_average_age_of_game(game)
+    end
   end
 
-  def get_info_on_players
+  def get_player_info_menu
     # Querie.list_game_names_of_player
     # which players are from my area
     # what players play the same game as me
