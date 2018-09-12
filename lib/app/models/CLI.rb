@@ -11,8 +11,8 @@ class CLI
     system "clear"
     update_location
     system "clear"
-    main_program_introduction
-    if main_program_introduction == 1
+    input = main_program_introduction
+    if main_program_introduction == "1"
       puts "Lets add a game to your account"
       input = get_user_input
       add_game(input)
