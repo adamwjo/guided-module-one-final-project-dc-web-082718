@@ -32,7 +32,7 @@ class CLI
     input = get_user_input.to_i
     # Checks if user input is valid
     if input > 4 || input < 1
-      puts "Please enter a valid input"
+      puts "Please enter a valid input".colorize(:red)
       # If input is invalid recall the method
       input = main_program_introduction
     end
