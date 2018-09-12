@@ -6,12 +6,19 @@ class CLI
   def run
     greet
     create_an_account
+    system "clear"
     update_age
+    system "clear"
     update_location
+    system "clear"
     main_program_introduction
     if main_program_introduction == 1
       puts "Lets add a game to your account"
-    end 
+      add_game
+      main_program_introduction
+    elsif main_program_introduction == 2
+      puts ""
+    end
   end
 
  # ***********************************************
@@ -56,7 +63,7 @@ class CLI
     puts "please update your location by picking a number below"
     puts "1.) US\n2.) France\n3.) Mexico\n4.) Spain\n5.) Russia"
     new_location = get_user_input.to_i
-    if new_location != 1..5
+    if new_location > 5 || new_location < 1
       puts "you fucked up"
     elsif new_location == 1
       @user.location = "US"
@@ -65,6 +72,7 @@ class CLI
   end
 
   def add_game
+    Game.find_or_create_by()
     #choose from existing games to add to account
     #list games
     #get user input
@@ -81,8 +89,9 @@ class CLI
   end
 
   def get_info_on_players
-    #which players are from my area
-    #what players play the same game as me
+    # Querie.list_game_names_of_player
+    # which players are from my area
+    # what players play the same game as me
   end
 
   def my_games
