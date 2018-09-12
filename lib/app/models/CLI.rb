@@ -24,7 +24,14 @@ class CLI
     elsif input == 4
       my_games
     elsif input == 5
-      puts "goodbye"
+      puts " _______  _______  _______  ______   ______            _______  _
+(  ____ \(  ___  )(  ___  )(  __  \ (  ___ \ |\     /|(  ____ \( )
+| (    \/| (   ) || (   ) || (  \  )| (   ) )( \   / )| (    \/| |
+| |      | |   | || |   | || |   ) || (__/ /  \ (_) / | (__    | |
+| | ____ | |   | || |   | || |   | ||  __ (    \   /  |  __)   | |
+| | \_  )| |   | || |   | || |   ) || (  \ \    ) (   | (      (_)
+| (___) || (___) || (___) || (__/  )| )___) )   | |   | (____/\ _
+(_______)(_______)(_______)(______/ |/ \___/    \_/   (_______/(_)"
     end
   end
 
@@ -43,11 +50,11 @@ class CLI
 
   def main_program_introduction
     puts "what would you like to do?"
-    puts "1.)add a game to your account\n 2.)get game info\n 3.)get info on other players\n 4.)Listmygames"
+    puts "1.)add a game to your account\n 2.)get game info\n 3.)get info on other players\n 4.)Listmygames\n 5.)Exit Lobby"
     input = get_user_input.to_i
     # Checks if user input is valid
     system "clear"
-    if input > 4 || input < 1
+    if input > 5 || input < 1
       puts "Please enter a valid input".colorize(:red)
       # If input is invalid recall the method
       input = main_program_introduction
@@ -156,12 +163,16 @@ class CLI
     if input == 1
       system "clear"
       puts "#{game.name} is a #{game.genre}"
+      run_without_greeting
     elsif input == 2
       Querie.find_average_age_of_game(game)
+      run_without_greeting
     elsif input == 3
       Querie.game_player_breakdown_by_location(game)
+      run_without_greeting
     elsif input == 4
       Querie.game_players(game)
+      run_without_greeting
     end
   end
 #****************PLAYER INFO MENU**************************************
@@ -172,9 +183,11 @@ class CLI
     if input == 1
       puts "Here are the current users who are logged in "
       Querie.current_logged_in_players
+      run_without_greeting
     elsif input == 2
       puts "Here are user's in your area:"
       Querie.other_players_from_same_location(@user)
+      run_without_greeting
     elsif input == 3
       puts "These users are playing the same game(s) as you:"
       Querie.players_who_share_games_with(@user)
