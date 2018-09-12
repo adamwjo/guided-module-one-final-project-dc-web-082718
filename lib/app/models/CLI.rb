@@ -145,6 +145,7 @@ class CLI
       # Adds game to user account
       @user.games << game
       puts "#{game.name} has been added to your account!"
+      run_without_greeting
     end
   end
 
