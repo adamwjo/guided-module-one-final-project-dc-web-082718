@@ -20,7 +20,7 @@ game1 = Game.find_or_create_by(name: "Grand Theft Auto", genre: "Action-Adventur
 game2 = Game.find_or_create_by(name: "Halo", genre: "First Person Shooter")
 game3 = Game.find_or_create_by(name: "Far Cry", genre: "Action-Adventure")
 game4 = Game.find_or_create_by(name: "Overwatch", genre: "First Person Shooter")
-game5 = Game.find_or_create_by(name: "Leage of Legends", genre: "Multiplayer Online")
+game5 = Game.find_or_create_by(name: "League of Legends", genre: "Multiplayer Online")
 
 
 game1.players << [player1, player2, player3, player4, player5]

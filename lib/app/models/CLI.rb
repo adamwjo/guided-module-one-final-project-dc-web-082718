@@ -55,7 +55,7 @@ end
 
   def create_or_login_to_an_account
     puts "Please enter Username:"
-    name = get_user_input
+    name = get_user_input.strip.split.map(&:capitalize).join(' ')
     # Gets user account
     @user = Player.find_by(name: name)
     # Checks if user exists
@@ -106,7 +106,7 @@ end
     puts "Lets add a game to your account \nHere is a list of your current games:"
     Querie.list_game_names_of_player(@user)
     puts "Please Enter the name of the game you would like to Add"
-    input = get_user_input
+    input = get_user_input.strip.split.map(&:capitalize).join(' ')
     # Gets Game object
     game = Game.find_by(name:input )
     # Checks if game with given name exists
@@ -124,7 +124,7 @@ end
       game = Game.create(name:input )
       puts "This Game was previosly not in our Database Please enter a game Genre"
       # Adds genre to game
-      input = get_user_input
+      input = get_user_input.strip.split.map(&:capitalize).join(' ')
       game.update(genre: input)
       # Adds game to user account
       @user.games << game
@@ -137,7 +137,7 @@ end
     puts "Which Game Would you like to know more about"
     Querie.list_of_game_names
     puts "Please type in the name of the game you would like to know more about"
-    input = get_user_input
+    input = get_user_input.strip.split.map(&:capitalize).join(' ')
     game = Game.find_by(name: input)
     if game == nil then puts "game not in datebase"
       get_game_info_menu
@@ -193,7 +193,7 @@ end
       system "clear"
       puts "What game would you like to remove?"
       Querie.list_game_names_of_player(@user)
-      input = get_user_input
+      input = get_user_input.strip.split.map(&:capitalize).join(' ')
       game_to_delete = Game.find_by(name: input)
       if game_to_delete == nil
         puts "Please Enter a Valid Input".colorize(:red)
