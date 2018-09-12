@@ -92,14 +92,16 @@ class Querie
     end
     players.each.with_index do |player, index|
       printf(player)
+      # Number of spaces between names is dependent on length of player name
       (18-player.length).times do
         printf (" ")
       end
+      # Starts new row every third name
       if index % 3 == 0
         printf("\n")
       end
-
     end
+    printf("\n")
   end
 
 
