@@ -129,7 +129,6 @@ class CLI
     puts "Please type in the name of the game you would like to know more about"
     input = get_user_input
     game = Game.find_by(name: input)
-    binding.pry
     if game == nil then puts "game not in datebase"
       get_game_info_menu
     end
@@ -141,8 +140,9 @@ class CLI
     elsif input == 2
       Querie.find_average_age_of_game(game)
     elsif input == 3
-      Querie.other_players_from_same_location(@user)
+      Querie.game_player_breakdown_by_location(game)
     elsif input == 4
+      Querie.game_players(game)
     end
   end
 #****************PLAYER INFO MENU**************************************
@@ -156,6 +156,7 @@ class CLI
     # display_games
     # add_game
     # remove games
+    Querie.list_game_names_of_player(@user)
   end
 
 

@@ -1,6 +1,6 @@
 class Querie
 
-# Find average age of players of passed in game
+# Outputs List game
   def self.list_of_game_names
     Game.all.collect do |game|
       puts game.name
@@ -35,7 +35,7 @@ class Querie
   def self.game_players(game_object)
     #collects array of game player
     name_array = game_object.players.collect do |player|
-      puts name_array
+      puts player.name
       player.name
     end
   end
