@@ -1,5 +1,9 @@
 require 'require_all'
 require_relative '../config/environment.rb'
+require 'csv'
+
+
+Game.import_from_csv('./db/game_name_and_genre.csv')
 
 
 player1 = Player.find_or_create_by(name: "Jake", location: "US", age: 23 )
@@ -14,15 +18,15 @@ player9 = Player.find_or_create_by(name: "Bob", location: "US", age: 19)
 player10 = Player.find_or_create_by(name: "Bill", location: "Mexico", age: 19)
 player11 = Player.find_or_create_by(name: "Ted", location: "Mexico", age: 19)
 player12 = Player.find_or_create_by(name: "Mark", location: "US", age: 19)
-
-
-game1 = Game.find_or_create_by(name: "Grand Theft Auto", genre: "Action-Adventure")
-game2 = Game.find_or_create_by(name: "Halo", genre: "First Person Shooter")
-game3 = Game.find_or_create_by(name: "Far Cry", genre: "Action-Adventure")
-game4 = Game.find_or_create_by(name: "Overwatch", genre: "First Person Shooter")
-game5 = Game.find_or_create_by(name: "League of Legends", genre: "Multiplayer Online")
-
-
+#
+#
+# game1 = Game.find_or_create_by(name: "Grand Theft Auto", genre: "Action-Adventure")
+# game2 = Game.find_or_create_by(name: "Halo", genre: "First Person Shooter")
+# game3 = Game.find_or_create_by(name: "Far Cry", genre: "Action-Adventure")
+# game4 = Game.find_or_create_by(name: "Overwatch", genre: "First Person Shooter")
+# game5 = Game.find_or_create_by(name: "League of Legends", genre: "Multiplayer Online")
+#
+#
 game1.players << [player1, player2, player3, player4, player5]
 game2.players << [player6, player7, player8, player9]
 game3.players << [player8, player9]
