@@ -2,7 +2,7 @@ require "pry"
 class CLI
   attr_accessor :user
 
-
+#*******************RUNNER METHODS*********************************
   def run
     greet
     create_or_login_to_an_account
@@ -11,27 +11,34 @@ class CLI
   end
 
   def run_without_greeting
-  input = main_program_introduction
-  if input > 4 || input < 1
-    run_without_greeting
+    input = main_program_introduction
+    if input > 5 || input < 1
+      run_without_greeting
+    end
+    if input == 1
+      add_game
+    elsif input == 2
+      get_game_info_menu
+    elsif input == 3
+      get_player_info_menu
+    elsif input == 4
+      my_games
+    elsif input == 5
+      puts "goodbye"
+    end
   end
-  if input == 1
-    add_game
-  elsif input == 2
-    get_game_info_menu
-  elsif input == 3
-    get_player_info_menu
-  elsif input == 4
-    my_games
-  end
-end
 
- # ****************HELPER METHODS*******************************
+ # ****************HELPER METHODS**********************************
   def greet
     puts "╔═╗╦  ╔═╗╔╦╗╦╦═╗╔═╗╔╗╔  ╔═╗╔═╗╔╦╗╔═╗  ╦  ╔═╗╔╗ ╔╗ ╦ ╦
 ╠╣ ║  ╠═╣ ║ ║╠╦╝║ ║║║║  ║ ╦╠═╣║║║║╣   ║  ║ ║╠╩╗╠╩╗╚╦╝
 ╚  ╩═╝╩ ╩ ╩ ╩╩╚═╚═╝╝╚╝  ╚═╝╩ ╩╩ ╩╚═╝  ╩═╝╚═╝╚═╝╚═╝ ╩"
-    puts "Please Login"
+    puts "press enter to start"
+    input = gets
+    if input == "\n"
+      system "clear"
+      puts "ready to begin"
+    end
   end
 
   def main_program_introduction
@@ -39,8 +46,8 @@ end
     puts "1.)add a game to your account\n 2.)get game info\n 3.)get info on other players\n 4.)Listmygames"
     input = get_user_input.to_i
     # Checks if user input is valid
+    system "clear"
     if input > 4 || input < 1
-      system "clear"
       puts "Please enter a valid input".colorize(:red)
       # If input is invalid recall the method
       input = main_program_introduction
@@ -54,14 +61,16 @@ end
 
 
   def create_or_login_to_an_account
-    puts "Please enter Username:"
-    name = get_user_input.strip.split.map(&:capitalize).join(' ')
+    puts "Please login with your Username:"
+    name = get_user_input
     # Gets user account
     @user = Player.find_by(name: name)
     # Checks if user exists
     if user
+      system "clear"
       puts "You already have an account and are now logged in, enjoy!"
     else
+      system "clear"
       # Creates player object if user does not already exist
       @user = Player.create(name: name)
       # Prompts user for additional required information
@@ -106,7 +115,7 @@ end
     puts "Lets add a game to your account \nHere is a list of your current games:"
     Querie.list_game_names_of_player(@user)
     puts "Please Enter the name of the game you would like to Add"
-    input = get_user_input.strip.split.map(&:capitalize).join(' ')
+    input = get_user_input
     # Gets Game object
     game = Game.find_by(name:input )
     # Checks if game with given name exists
@@ -124,7 +133,7 @@ end
       game = Game.create(name:input )
       puts "This Game was previosly not in our Database Please enter a game Genre"
       # Adds genre to game
-      input = get_user_input.strip.split.map(&:capitalize).join(' ')
+      input = get_user_input
       game.update(genre: input)
       # Adds game to user account
       @user.games << game
@@ -137,7 +146,7 @@ end
     puts "Which Game Would you like to know more about"
     Querie.list_of_game_names
     puts "Please type in the name of the game you would like to know more about"
-    input = get_user_input.strip.split.map(&:capitalize).join(' ')
+    input = get_user_input
     game = Game.find_by(name: input)
     if game == nil then puts "game not in datebase"
       get_game_info_menu
@@ -169,6 +178,7 @@ end
     elsif input == 3
       puts "These users are playing the same game(s) as you:"
       Querie.players_who_share_games_with(@user)
+      run_without_greeting
     end
 
 
@@ -176,7 +186,7 @@ end
     # which players are from my area
     # what players play the same game as me
   end
-#***********************************************************************
+#*******************GAME INFO****************************************************
   def my_games
     # display_games
     # add_game
@@ -193,7 +203,7 @@ end
       system "clear"
       puts "What game would you like to remove?"
       Querie.list_game_names_of_player(@user)
-      input = get_user_input.strip.split.map(&:capitalize).join(' ')
+      input = get_user_input
       game_to_delete = Game.find_by(name: input)
       if game_to_delete == nil
         puts "Please Enter a Valid Input".colorize(:red)
