@@ -7,7 +7,6 @@ class CLI
     greet
     create_or_login_to_an_account
     input = main_program_introduction
-    binding.pry
     if input == 1
       add_game
     elsif input == 2
@@ -57,7 +56,7 @@ class CLI
       # Creates player object if user does not already exist
       @user = Player.create(name: name)
       # Prompts user for additional required information
-      puts "Account Created!"
+      puts "Account Created!".colorize(:blue)
       update_age
       system "clear"
       update_location
@@ -76,7 +75,7 @@ class CLI
     puts "1.) US\n2.) France\n3.) Mexico\n4.) Spain\n5.) Russia"
     new_location = get_user_input.to_i
     if new_location > 5 || new_location < 1
-      puts "you fucked up"
+      puts "Please Enter a Valid Input".colorize(:red)
       update_location
     elsif new_location == 1
       @user.location = "US"
@@ -108,7 +107,7 @@ class CLI
       else
         # Adds game to user games
         @user.games << game
-        puts "#{game.name} has been added to your account"
+        puts "#{game.name} has been added to your account".colorize(:Blue)
       end
     else
       # Creates New Game if doesnt already exist
