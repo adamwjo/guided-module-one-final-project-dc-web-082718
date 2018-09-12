@@ -92,8 +92,15 @@ class CLI
 
   def update_age
     puts "please enter your age"
-    @user.age = get_user_input
+    input = get_user_input.to_i
+    if input == 0
+      system "clear"
+      puts "Invalid Input".colorize(:red)
+      update_age
+    else
+    @user.age = input
     @user.save
+  end
   end
 
   def update_location
@@ -158,6 +165,7 @@ class CLI
     input = get_user_input
     game = Game.find_by(name: input)
     if game == nil then puts "game not in datebase"
+      system "clear"
       get_game_info_menu
     end
     puts "What Would You Like to Know \n 1. Game Genre \n 2. Average Player Age \n 3. Breakdown of Game Players by Country \n 4. What other Users are Playing this Game"
@@ -165,15 +173,19 @@ class CLI
     if input == 1
       system "clear"
       puts "#{game.name} is a #{game.genre}"
+      system "clear"
       run_without_greeting
     elsif input == 2
       Querie.find_average_age_of_game(game)
+      system "clear"
       run_without_greeting
     elsif input == 3
       Querie.game_player_breakdown_by_location(game)
+      system "clear"
       run_without_greeting
     elsif input == 4
       Querie.game_players(game)
+      system "clear"
       run_without_greeting
     end
   end
@@ -185,14 +197,17 @@ class CLI
     if input == 1
       puts "Here are the current users who are logged in "
       Querie.current_logged_in_players
+      system "clear"
       run_without_greeting
     elsif input == 2
       puts "Here are user's in your area:"
       Querie.other_players_from_same_location(@user)
+      system "clear"
       run_without_greeting
     elsif input == 3
       puts "These users are playing the same game(s) as you:"
       Querie.players_who_share_games_with(@user)
+      system "clear"
       run_without_greeting
     end
 
@@ -215,21 +230,29 @@ class CLI
     elsif input == 1
       add_game
     elsif input == 2
-      system "clear"
-      puts "What game would you like to remove?"
-      Querie.list_game_names_of_player(@user)
-      input = get_user_input
-      game_to_delete = Game.find_by(name: input)
-      if game_to_delete == nil
-        puts "Please Enter a Valid Input".colorize(:red)
+      if @user.games.empty?
+        system "clear"
+        puts "You Have No Hames in Your Collection!".colorize(:red)
         my_games
       else
-      @user.games.delete(game_to_delete)
-      "#{game_to_delete.name} has been removed from your collection "
+        system "clear"
+        puts "What game would you like to remove?"
+        Querie.list_game_names_of_player(@user)
+        input = get_user_input
+        game_to_delete = Game.find_by(name: input)
+        if game_to_delete == nil
+          puts "Please Enter a Valid Input".colorize(:red)
+          return my_games
+        else
+        @user.games.delete(game_to_delete)
+        system "clear"
+        "#{game_to_delete.name} has been removed from your collection".colorize(:blue)
+        run_without_greeting
+      end
     end
     elsif input == 3
+      system "clear"
       run_without_greeting
-
     end
 
   end
