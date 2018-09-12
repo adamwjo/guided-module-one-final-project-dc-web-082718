@@ -14,8 +14,9 @@ class CLI
     main_program_introduction
     if main_program_introduction == 1
       puts "Lets add a game to your account"
-      add_game
-      main_program_introduction
+      input = get_user_input
+      add_game(input)
+      #my game screen
     elsif main_program_introduction == 2
       puts ""
     end
@@ -68,11 +69,24 @@ class CLI
     elsif new_location == 1
       @user.location = "US"
       @user.save
+    elsif new_location == 2
+      @user.location = "France"
+      @user.save
+    elsif new_location == 3
+      @user.location = "Mexico"
+      @user.save
+    elsif new_location == 4
+      @user.location = "Spain"
+      @user.save
+    elsif new_location == 5
+      @user.location = "Russia"
+      @user.save
     end
   end
 
-  def add_game
-    Game.find_or_create_by()
+  def add_game(input)
+    game = Game.find_or_create_by(name:input )
+    @user.games << game
     #choose from existing games to add to account
     #list games
     #get user input
