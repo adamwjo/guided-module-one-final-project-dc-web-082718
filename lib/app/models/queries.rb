@@ -12,7 +12,7 @@ class Querie
 # lists games of intputed player
   def self.list_game_names_of_player(player_object)
     player_object.games.collect do |game|
-      puts game.name
+      puts game.name.colorize(:blue)
       game.name
     end
   end
