@@ -10,6 +10,3 @@ describe 'Querie' do
     expect(Querie.list_game_names_of_player(player1)).to eq(["ABC", "EFG"])
   end
 end
-
-
-mrpoopy 
