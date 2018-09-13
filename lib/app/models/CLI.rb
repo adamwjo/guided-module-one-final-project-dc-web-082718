@@ -69,7 +69,7 @@ class CLI
 
   def create_or_login_to_an_account
     puts "Please login with your Username:"
-    name = get_user_input
+    name = get_user_input.split.map(&:capitalize).join(' ').strip
     # Gets user account
     @user = Player.find_by(name: name)
     # Checks if user exists
@@ -129,7 +129,7 @@ class CLI
     puts "Lets add a game to your account \nHere is a list of your current games:"
     Querie.list_game_names_of_player(@user)
     puts "Please Enter the name of the game you would like to Add"
-    input = get_user_input
+    input = get_user_input.split.map(&:capitalize).join(' ').strip
     # Gets Game object
     game = Game.find_by(name:input )
     # Checks if game with given name exists
@@ -147,7 +147,7 @@ class CLI
       game = Game.create(name:input )
       puts "This Game was previosly not in our Database Please enter a game Genre"
       # Adds genre to game
-      input = get_user_input
+      input = get_user_input.split.map(&:capitalize).join(' ').strip
       game.update(genre: input)
       # Adds game to user account
       @user.games << game
@@ -162,7 +162,7 @@ class CLI
     puts "Which Game Would you like to know more about"
     Querie.list_of_game_names
     puts "Please type in the name of the game you would like to know more about"
-    input = get_user_input
+    input = get_user_input.split.map(&:capitalize).join(' ').strip
     game = Game.find_by(name: input)
     if game == nil then puts "game not in datebase"
       system "clear"
@@ -173,7 +173,6 @@ class CLI
     if input == 1
       system "clear"
       puts "#{game.name} is a #{game.genre}"
-      system "clear"
       run_without_greeting
     elsif input == 2
       Querie.find_average_age_of_game(game)
@@ -184,8 +183,8 @@ class CLI
       Querie.game_player_breakdown_by_location(game)
       run_without_greeting
     elsif input == 4
-      Querie.game_players(game)
       system "clear"
+      Querie.game_players(game)
       run_without_greeting
     end
   end
@@ -238,7 +237,7 @@ class CLI
         system "clear"
         puts "What game would you like to remove?"
         Querie.list_game_names_of_player(@user)
-        input = get_user_input
+        input = get_user_input.split.map(&:capitalize).join(' ').strip
         game_to_delete = Game.find_by(name: input)
         if game_to_delete == nil
           puts "Please Enter a Valid Input".colorize(:red)
