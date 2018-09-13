@@ -27,7 +27,7 @@ class Querie
       end
     end.compact #Removes nil space
     average = ages.sum.to_f/ages.length.to_f #Average = total/number of instances
-    puts average
+    puts "#{game_object.name}'s average player age is #{average}".colorize(:blue)
     average
   end
 
@@ -35,7 +35,7 @@ class Querie
   def self.game_players(game_object)
     #collects array of game player
     name_array = game_object.players.collect do |player|
-      puts player.name
+      puts player.name.colorize(:blue)
       player.name
     end
   end
@@ -51,7 +51,12 @@ class Querie
     end.compact
     # deletes passed in players name out of collection
     players.delete(player_object.name)
-    puts players
+    players.each do |player|
+      puts player.colorize(:blue)
+    end
+    players
+
+
   end
 
 # prodies break down of number of players by locaiton for passed in game_object
@@ -64,7 +69,7 @@ class Querie
     end
     location_array.uniq.each do |location|
       # creates locations hash with locations keys pointing to number of players from that area
-      puts "#{location}: #{location_array.count(location)} Players"
+      puts "#{location}: #{location_array.count(location)} Players".colorize(:blue)
       locations[location] = location_array.count(location)
     end
     locations
@@ -81,7 +86,7 @@ class Querie
       #deletes passed in players name out of array
       games_hash[game.name].delete(player_object.name)
 
-      puts "#{game.name} Players: #{games_hash[game.name].join(", ")}"
+      puts "#{game.name} Players: #{games_hash[game.name].join(", ")}".colorize(:blue)
     end
     games_hash
   end
@@ -97,7 +102,7 @@ class Querie
         printf (" ")
       end
       # Starts new row every third name
-      if index % 3 == 0
+      if index % 3 == 0 && index != 0
         printf("\n")
       end
     end

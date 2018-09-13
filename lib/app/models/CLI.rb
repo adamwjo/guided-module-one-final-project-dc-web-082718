@@ -136,11 +136,14 @@ class CLI
     if game
       # Checks if user already has game on account
       if @user.games.include?(game)
-        puts "#{game.name} is already on your account!"
+        puts "#{game.name} is already on your account!".colorize(:red)
+        run_without_greeting
       else
         # Adds game to user games
         @user.games << game
+        system "clear"
         puts "#{game.name} has been added to your account".colorize(:blue)
+        run_without_greeting
       end
     else
       # Creates New Game if doesnt already exist
@@ -172,11 +175,11 @@ class CLI
     input = get_user_input.to_i
     if input == 1
       system "clear"
-      puts "#{game.name} is a #{game.genre}"
+      puts "#{game.name} is a #{game.genre}".colorize(:blue)
       run_without_greeting
     elsif input == 2
-      Querie.find_average_age_of_game(game)
       system "clear"
+      Querie.find_average_age_of_game(game)
       run_without_greeting
     elsif input == 3
       system "clear"
@@ -199,14 +202,14 @@ class CLI
       Querie.current_logged_in_players
       run_without_greeting
     elsif input == 2
+      system "clear"
       puts "Here are user's in your area:"
       Querie.other_players_from_same_location(@user)
-      system "clear"
       run_without_greeting
     elsif input == 3
+      system "clear"
       puts "These users are playing the same game(s) as you:"
       Querie.players_who_share_games_with(@user)
-      system "clear"
       run_without_greeting
     end
 
@@ -245,7 +248,7 @@ class CLI
         else
         @user.games.delete(game_to_delete)
         system "clear"
-        "#{game_to_delete.name} has been removed from your collection".colorize(:blue)
+        puts "#{game_to_delete.name} has been removed from your collection".colorize(:blue)
         run_without_greeting
       end
     end
