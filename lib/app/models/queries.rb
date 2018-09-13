@@ -19,12 +19,9 @@ class Querie
 
 # returns average age of passed in games players
   def self.find_average_age_of_game(game_object)
-    ages = Player.all.collect do |player| ## Retrieves array of all player objects
+    ages = game_object.players.collect do |player| ## Retrieves array of all player objects
       # checks to see if players game array contains the passed in game
-      if player.games.include?(game_object)
-        # collects the players age
         player.age
-      end
     end.compact #Removes nil space
     average = ages.sum.to_f/ages.length.to_f #Average = total/number of instances
     puts "#{game_object.name}'s average player age is #{average}".colorize(:blue)

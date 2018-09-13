@@ -19,5 +19,15 @@ describe 'Querie' do
     expect(Querie.list_game_names_of_player(player1)).not_to include(nil)
   end
 
+  it "find_average_age_of_game method returns average age of players" do
+    player1= Player.new(name:"Billy", location: "US", age:16)
+    player2 =Player.new(name:"james", location: "US", age:40)
+    player3 = Player.new(name:"bobby", location: "US", age:4)
+    game1 = Game.new(name: "ABC")
+    game1.players<< [player1, player2, player3]
+    expect(Querie.find_average_age_of_game(game1)).to eq(20)
+
+  end
+
 
 end
