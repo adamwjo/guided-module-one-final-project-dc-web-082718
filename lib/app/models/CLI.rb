@@ -180,8 +180,8 @@ class CLI
       system "clear"
       run_without_greeting
     elsif input == 3
-      Querie.game_player_breakdown_by_location(game)
       system "clear"
+      Querie.game_player_breakdown_by_location(game)
       run_without_greeting
     elsif input == 4
       Querie.game_players(game)
