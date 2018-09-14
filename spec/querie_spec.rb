@@ -1,5 +1,7 @@
 require_relative '../config/environment.rb'
+require 'pry'
 
+binding.pry
 describe 'Querie' do
   let (:checker) { Querie.new }
 

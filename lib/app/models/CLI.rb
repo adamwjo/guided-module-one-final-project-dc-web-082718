@@ -4,6 +4,7 @@ class CLI
 
 #*******************RUNNER METHODS*********************************
   def run
+    system "clear"
     greet
     create_or_login_to_an_account
     puts "Great you are all ready to start!"
@@ -136,6 +137,7 @@ class CLI
     if game
       # Checks if user already has game on account
       if @user.games.include?(game)
+        system "clear"
         puts "#{game.name} is already on your account!".colorize(:red)
         run_without_greeting
       else
@@ -147,8 +149,9 @@ class CLI
       end
     else
       # Creates New Game if doesnt already exist
+      system "clear"
       game = Game.create(name:input )
-      puts "This Game was previosly not in our Database Please enter a game Genre"
+      puts "This Game was previosly Not in Our Database Please Enter a Game Genre"
       # Adds genre to game
       input = get_user_input.split.map(&:capitalize).join(' ').strip
       game.update(genre: input)
@@ -171,6 +174,7 @@ class CLI
       system "clear"
       get_game_info_menu
     end
+    system "clear"
     puts "What Would You Like to Know \n 1. Game Genre \n 2. Average Player Age \n 3. Breakdown of Game Players by Country \n 4. What other Users are Playing this Game"
     input = get_user_input.to_i
     if input == 1
